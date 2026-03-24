@@ -1,11 +1,25 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-accent: #2563eb;
-  --color-accent-light: #3b82f6;
-  --color-marked: #dcfce7;
-  --color-marked-border: #22c55e;
-  --color-bingo: #fbbf24;
+  /* Notebook palette */
+  --color-paper: #fdf6e3;
+  --color-paper-dark: #f5e6c8;
+  --color-ruled-line: #b3d4fc;
+  --color-margin-line: #f4a0a0;
+  --color-pencil: #3a3a3a;
+  --color-pencil-light: #6b6b6b;
+  --color-pen-blue: #1565c0;
+  --color-pen-blue-dark: #0d47a1;
+  --color-highlight-yellow: #fff176;
+  --color-highlight-pink: #f8bbd0;
+  --color-highlight-green: #c8e6c9;
+  --color-highlight-green-dark: #66bb6a;
+  --color-eraser: #fce4ec;
+  --color-tape: #ffffcc;
+
+  /* Fonts */
+  --font-hand: 'Patrick Hand', cursive;
+  --font-heading: 'Shadows Into Light Two', cursive;
 }
 
 html,
@@ -16,6 +30,185 @@ body,
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-hand);
   -webkit-tap-highlight-color: transparent;
+  background-color: var(--color-paper);
+  color: var(--color-pencil);
+
+  /* Ruled notebook lines */
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      var(--color-ruled-line) 31px,
+      var(--color-ruled-line) 32px
+    );
+  background-size: 100% 32px;
+  background-position: 0 0;
+}
+
+/* Left margin red line + punch holes */
+#root {
+  position: relative;
+}
+#root::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 48px;
+  width: 2px;
+  height: 100%;
+  background-color: var(--color-margin-line);
+  opacity: 0.6;
+  z-index: 50;
+  pointer-events: none;
+}
+
+/* Sketch border utility */
+.sketch-border {
+  border: 2px solid var(--color-pencil);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.sketch-border-thin {
+  border: 1.5px solid var(--color-pen-blue);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.sketch-border-blue {
+  border: 2px solid var(--color-pen-blue);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 2px 2px 0 rgba(21, 101, 192, 0.1);
+}
+
+/* Highlighter effect */
+.highlighter-yellow {
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    var(--color-highlight-yellow) 40%,
+    var(--color-highlight-yellow) 85%,
+    transparent 85%
+  );
+}
+
+.highlighter-pink {
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    var(--color-highlight-pink) 40%,
+    var(--color-highlight-pink) 85%,
+    transparent 85%
+  );
+}
+
+.highlighter-green {
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    var(--color-highlight-green) 40%,
+    var(--color-highlight-green) 85%,
+    transparent 85%
+  );
+}
+
+/* Sticky note effect */
+.sticky-note {
+  background: var(--color-tape);
+  border: 1px solid #e0d990;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.12), inset 0 0 40px rgba(0, 0, 0, 0.02);
+  transform: rotate(-1.5deg);
+}
+
+/* Tape strip at top of sticky note */
+.tape::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  width: 60px;
+  height: 20px;
+  background: rgba(200, 200, 150, 0.5);
+  border: 1px solid rgba(180, 180, 130, 0.3);
+}
+
+/* Torn paper edge */
+.torn-paper {
+  background: var(--color-paper);
+  clip-path: polygon(
+    0% 2%, 4% 0%, 8% 3%, 12% 1%, 16% 2%, 20% 0%,
+    24% 3%, 28% 1%, 32% 2%, 36% 0%, 40% 3%, 44% 1%,
+    48% 2%, 52% 0%, 56% 3%, 60% 1%, 64% 2%, 68% 0%,
+    72% 3%, 76% 1%, 80% 2%, 84% 0%, 88% 3%, 92% 1%,
+    96% 2%, 100% 0%,
+    100% 100%, 0% 100%
+  );
+}
+
+/* Hand-drawn circle mark for checked squares */
+.scribble-circle::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border: 2.5px solid var(--color-pen-blue);
+  border-radius: 68% 42% 58% 32% / 45% 65% 35% 55%;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: sketch-in 0.3s ease-out;
+}
+
+/* Animations */
+@keyframes sketch-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotate(-3deg);
+  }
+  to {
+    opacity: 0.7;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-1.5deg); }
+  75% { transform: rotate(1.5deg); }
+}
+
+@keyframes doodle-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-10deg);
+  }
+  60% {
+    transform: scale(1.15) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+/* Doodle star decorations */
+.doodle-star::before {
+  content: '✦';
+  position: absolute;
+  font-size: 1.2rem;
+  color: var(--color-pen-blue);
+  opacity: 0.4;
+  animation: wiggle 3s ease-in-out infinite;
+}
+
+/* Wavy underline */
+.wavy-underline {
+  text-decoration: underline wavy var(--color-pen-blue);
+  text-decoration-skip-ink: none;
+  text-underline-offset: 4px;
 }
