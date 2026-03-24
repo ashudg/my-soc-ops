@@ -29,7 +29,7 @@ function App() {
         onReset={resetGame}
       />
       {showBingoModal && (
-        <BingoModal onDismiss={dismissModal} />
+        <BingoModal onDismiss={dismissModal} onRetry={startGame} />
       )}
     </>
   );
