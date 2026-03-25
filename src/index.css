@@ -196,6 +196,49 @@ body {
   50% { transform: rotate(2deg); }
 }
 
+/* Staggered entrance animation */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  opacity: 0;
+  animation: fade-up 0.5s ease-out forwards;
+}
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.35s; }
+.stagger-4 { animation-delay: 0.5s; }
+.stagger-5 { animation-delay: 0.65s; }
+
+/* Underline draw-in animation */
+@keyframes draw-line {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Mini grid cell for decorative preview */
+.mini-grid-square {
+  border: 1.5px solid var(--color-pen-blue);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: var(--color-paper);
+  padding: 4px;
+  font-size: 0.65rem;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--color-pencil-light);
+}
+
 /* Doodle star decorations */
 .doodle-star::before {
   content: '✦';
