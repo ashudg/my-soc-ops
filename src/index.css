@@ -196,6 +196,96 @@ body {
   50% { transform: rotate(2deg); }
 }
 
+/* Card deal animation — each cell flips/fades in */
+@keyframes card-deal {
+  from {
+    opacity: 0;
+    transform: scale(0.6) rotate(-8deg);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.05) rotate(1deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.card-deal {
+  opacity: 0;
+  animation: card-deal 0.35s ease-out forwards;
+}
+
+/* 25 delay classes for the 5×5 grid deal sequence */
+.deal-0  { animation-delay: 0.3s; }
+.deal-1  { animation-delay: 0.38s; }
+.deal-2  { animation-delay: 0.46s; }
+.deal-3  { animation-delay: 0.54s; }
+.deal-4  { animation-delay: 0.62s; }
+.deal-5  { animation-delay: 0.7s; }
+.deal-6  { animation-delay: 0.78s; }
+.deal-7  { animation-delay: 0.86s; }
+.deal-8  { animation-delay: 0.94s; }
+.deal-9  { animation-delay: 1.02s; }
+.deal-10 { animation-delay: 1.10s; }
+.deal-11 { animation-delay: 1.18s; }
+.deal-12 { animation-delay: 0.1s; }
+.deal-13 { animation-delay: 1.26s; }
+.deal-14 { animation-delay: 1.34s; }
+.deal-15 { animation-delay: 1.42s; }
+.deal-16 { animation-delay: 1.50s; }
+.deal-17 { animation-delay: 1.58s; }
+.deal-18 { animation-delay: 1.66s; }
+.deal-19 { animation-delay: 1.74s; }
+.deal-20 { animation-delay: 1.82s; }
+.deal-21 { animation-delay: 1.90s; }
+.deal-22 { animation-delay: 1.98s; }
+.deal-23 { animation-delay: 2.06s; }
+.deal-24 { animation-delay: 2.14s; }
+
+/* CTA button fade-in after cards are dealt */
+@keyframes cta-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cta-reveal {
+  opacity: 0;
+  animation: cta-reveal 0.5s ease-out 2.5s forwards;
+}
+
+/* Preview grid cell */
+.preview-cell {
+  border: 1.5px solid var(--color-pen-blue);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: var(--color-paper);
+  padding: 2px;
+  font-size: 0.55rem;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--color-pencil-light);
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.preview-cell-free {
+  background: var(--color-highlight-yellow);
+  color: var(--color-pen-blue);
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
 /* Doodle star decorations */
 .doodle-star::before {
   content: '✦';
